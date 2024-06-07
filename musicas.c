@@ -54,3 +54,19 @@ void readFile(CircularDoublyLinkedlista *lista, const char *fileName) {
   }
   fclose(file);
 }
+
+void escreverArq(CircularDoublyLinkedlista *lista, const char *fileName) {
+  FILE *file = fopen(fileName, "w");
+  if (!file) {
+    perror("Não foi possível abrir");
+    return;
+  }
+  Node *atual = lista->head;
+  if (atual) {
+    do {
+      fprintf(file, "%s;%s\n", atual->artista, atual->musica);
+      atual = atual->next;
+    } while (atual != lista->head);
+  }
+  fclose(file);
+}
