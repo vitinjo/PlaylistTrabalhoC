@@ -182,3 +182,18 @@ void searchMusica(CircularDoublyLinkedlista *lista) {
     printf("Música não encontrada.\n");
   }
 }
+
+Node *nextMusica(Node *atual) {
+  if (atual && atual->next) {
+    atual = atual->next;
+  }
+  return atual;
+}
+
+Node *prevMusica(Node *atual) {
+  if (atual && atual->prev) {
+    atual = atual->prev;
+  }
+  return atual;
+}
+
