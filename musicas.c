@@ -125,3 +125,35 @@ void removeMusica(CircularDoublyLinkedlista *lista, const char *fileName) {
     printf("Playlist está vazia.\n");
     return;
   }
+
+ Node *atual = lista->head;
+  int found = 0;
+  do {
+    if (strcmp(atual->musica, musicaName) == 0) {
+      found = 1;
+      if (atual == lista->head) {
+        if (atual->next == lista->head) {
+          lista->head = NULL;
+        } else {
+          Node *tail = lista->head->prev;
+          lista->head = atual->next;
+          tail->next = lista->head;
+          lista->head->prev = tail;
+        }
+      } else {
+        atual->prev->next = atual->next;
+        atual->next->prev = atual->prev;
+      }
+      free(atual);
+      break;
+    }
+    atual = atual->next;
+  } while (atual != lista->head);
+
+  if (found) {
+    escreverArq(lista, fileName);
+    printf("Música removida.\n");
+  } else {
+    printf("Não encontramos a música informada.\n");
+  }
+}
