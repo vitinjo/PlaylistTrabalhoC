@@ -196,4 +196,68 @@ Node *prevMusica(Node *atual) {
   }
   return atual;
 }
+void menu() {
+  printf("Menu de opções:\n");
+  printf("1. Exibição da playlist pela ordem de cadastro\n");
+  printf("2. Exibição da playlist ordenada pelo nome das músicas\n");
+  printf("3. Inserção de novas músicas\n");
+  printf("4. Remoção de uma música\n");
+  printf("5. Busca por uma música\n");
+  printf("6. Avançar para próxima música\n");
+  printf("7. Retornar a música anterior\n");
+  printf("8. Sair\n");
+}
 
+int main() {
+  CircularDoublyLinkedlista playlista = {NULL};
+  Node *atualMusica = NULL;
+  const char *fileName = "musicas.txt";
+  readFile(&playlista, fileName);
+  atualMusica = playlista.head;
+
+  while (1) {
+    menu();
+    int choice;
+    printf("Opção: ");
+    scanf("%d", &choice);
+
+    switch (choice) {
+    case 1:
+      display(&playlista);
+      break;
+    case 2:
+      mostrarPlaylistaAleatoria(&playlista);
+      break;
+    case 3:
+      insertMusica(&playlista, fileName);
+      break;
+    case 4:
+      removeMusica(&playlista, fileName);
+      break;
+    case 5:
+      searchMusica(&playlista);
+      break;
+    case 6:
+      atualMusica = nextMusica(atualMusica);
+      if (atualMusica) {
+        printf("Now playing: %s - %s\n", atualMusica->artista,
+               atualMusica->musica);
+      }
+      break;
+    case 7:
+      atualMusica = prevMusica(atualMusica);
+      if (atualMusica) {
+        printf("Now playing: %s - %s\n", atualMusica->artista,
+               atualMusica->musica);
+      }
+      break;
+    case 8:
+      printf("Exiting the program.\n");
+      exit(0);
+    default:
+      printf("Invalid choice. Please try again.\n");
+    }
+  }
+
+  return 0;
+}
