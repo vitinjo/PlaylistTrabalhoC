@@ -103,3 +103,25 @@ void mostrarPlaylistaAleatoria(CircularDoublyLinkedlista *lista) {
     printf("%s - %s\n", array[i]->artista, array[i]->musica);
   }
 }
+
+void insertMusica(CircularDoublyLinkedlista *lista, const char *fileName) {
+  char artista[100];
+  char musica[100];
+  printf("Informe o nome do artista: ");
+  scanf(" %[^\n]s", artista);
+  printf("Agora informe a música: ");
+  scanf(" %[^\n]s", musica);
+  append(lista, artista, musica);
+  escreverArq(lista, fileName);
+  printf("Música nova adicionada com sucesso!.\n");
+}
+
+void removeMusica(CircularDoublyLinkedlista *lista, const char *fileName) {
+  char musicaName[100];
+  printf("Nome da música a ser removida: ");
+  scanf(" %[^\n]s", musicaName);
+
+  if (!lista->head) {
+    printf("Playlist está vazia.\n");
+    return;
+  }
