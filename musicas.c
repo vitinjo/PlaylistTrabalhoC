@@ -157,3 +157,28 @@ void removeMusica(CircularDoublyLinkedlista *lista, const char *fileName) {
     printf("Não encontramos a música informada.\n");
   }
 }
+void searchMusica(CircularDoublyLinkedlista *lista) {
+  char musicaName[100];
+  printf("Digite o nome da música para procura: ");
+  scanf(" %[^\n]s", musicaName);
+
+  if (!lista->head) {
+    printf("Playlist está vazia.\n");
+    return;
+  }
+
+  Node *atual = lista->head;
+  int found = 0;
+  do {
+    if (strcmp(atual->musica, musicaName) == 0) {
+      printf("Song found: %s - %s\n", atual->artista, atual->musica);
+      found = 1;
+      break;
+    }
+    atual = atual->next;
+  } while (atual != lista->head);
+
+  if (!found) {
+    printf("Música não encontrada.\n");
+  }
+}
