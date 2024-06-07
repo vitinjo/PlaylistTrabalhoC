@@ -70,3 +70,36 @@ void escreverArq(CircularDoublyLinkedlista *lista, const char *fileName) {
   }
   fclose(file);
 }
+void mostrarPlaylistaAleatoria(CircularDoublyLinkedlista *lista) {
+  if (!lista->head) {
+    printf("Playlista is empty.\n");
+    return;
+  }
+  int count = 0;
+  Node *atual = lista->head;
+  do {
+    count++;
+    atual = atual->next;
+  } while (atual != lista->head);
+
+  Node *array[count];
+  atual = lista->head;
+  for (int i = 0; i < count; i++) {
+    array[i] = atual;
+    atual = atual->next;
+  }
+
+  for (int i = 0; i < count - 1; i++) {
+    for (int j = 0; j < count - i - 1; j++) {
+      if (strcmp(array[j]->musica, array[j + 1]->musica) > 0) {
+        Node *temp = array[j];
+        array[j] = array[j + 1];
+        array[j + 1] = temp;
+      }
+    }
+  }
+
+  for (int i = 0; i < count; i++) {
+    printf("%s - %s\n", array[i]->artista, array[i]->musica);
+  }
+}
